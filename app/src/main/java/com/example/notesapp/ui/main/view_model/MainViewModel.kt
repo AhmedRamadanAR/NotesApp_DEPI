@@ -18,7 +18,7 @@ class MainViewModel(val app: Application) : AndroidViewModel(app) {
 
     fun getAllNotes(){
         viewModelScope.launch(Dispatchers.IO) {
-            val noteDao = AppDatabase.DatabaseBuilder.getInstance(app.applicationContext).noteDao()
+            val noteDao = AppDatabase.DatabaseBuilder.getInstance(app.applicationContext).noteDao
 
             val result = noteDao.getNotes()
             withContext(Dispatchers.Main){

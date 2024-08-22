@@ -8,16 +8,24 @@ import com.example.notesapp.data.models.Note
 
 @Database(entities = [Note::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun noteDao() : NoteDao
+    abstract val noteDao: NoteDao
 
-    object DatabaseBuilder{
-        fun getInstance(context: Context): AppDatabase {
+    object DatabaseBuilder {
+        @Volatile
+        private var instance: AppDatabase? = null
+        private fun buildDatabse(context: Context): AppDatabase {
             val db = Room.databaseBuilder(
                 context.applicationContext,
-                AppDatabase::class.java, "notes_db"
+                AppDatabase::class.java,
+                "notes_db"
             ).build()
             return db
         }
+
+       fun getInstance(context: Context):AppDatabase{
+
+           return instance ?:buildDatabse(context = context).also { instance=it }
+       }
     }
 
 }

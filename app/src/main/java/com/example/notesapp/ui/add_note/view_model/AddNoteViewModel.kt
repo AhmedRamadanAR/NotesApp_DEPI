@@ -18,7 +18,7 @@ class AddNoteViewModel (val app: Application) : AndroidViewModel(app) {
 
     fun addNote(note: Note){
         viewModelScope.launch(Dispatchers.IO) {
-            val noteDao = AppDatabase.DatabaseBuilder.getInstance(app.applicationContext).noteDao()
+            val noteDao = AppDatabase.DatabaseBuilder.getInstance(app.applicationContext).noteDao
 
             val result = noteDao.addNote(note)
             withContext(Dispatchers.Main){
